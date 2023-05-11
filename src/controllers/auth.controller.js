@@ -1,7 +1,8 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
 const { authService, userService, tokenService, emailService } = require('../services');
-
+const BusinessStep01 = require('../models/BusinessStep1')
+const businessprofileimage = require('../models/BusinessProfileImage')
 const register = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
   const tokens = await tokenService.generateAuthTokens(user);
@@ -14,6 +15,49 @@ const login = catchAsync(async (req, res) => {
   const tokens = await tokenService.generateAuthTokens(user);
   res.send({ user, tokens });
 });
+
+const businessstep01 = catchAsync(async (req, res) => {
+  const { company_name, business_category, company_registration_number, tax_identifier, license_Type, company_description, image } = req.body
+  let flag = Object.values(req.body);
+  console.log('req', req);
+  console.log('req body', req.body);
+  console.log('req file', req.file);
+  let flag2 = flag.some((e, i) => e == '');
+  if (flag2) {
+    return
+  }
+  BusinessStep01.create(req.body, (error, data) => {
+    if (error) {
+      res.json(
+        {
+          status: false,
+          message: 'internal server error'
+        }
+      )
+    }
+    else {
+      res.json(
+        {
+          data: data,
+          status: true,
+          message: 'Data send success fullly'
+        }
+      )
+    }
+  })
+
+});
+
+// Handle image upload request
+const BusinessProfileImage = catchAsync(async (req, res) => {
+
+  res.status(200).json({ image: req.file.originalname })
+
+});
+
+
+
+
 
 const logout = catchAsync(async (req, res) => {
   await authService.logout(req.body.refreshToken);
@@ -56,4 +100,6 @@ module.exports = {
   resetPassword,
   sendVerificationEmail,
   verifyEmail,
+  businessstep01,
+  BusinessProfileImage,
 };

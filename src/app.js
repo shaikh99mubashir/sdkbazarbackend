@@ -13,6 +13,7 @@ const { authLimiter } = require('./middlewares/rateLimiter');
 const routes = require('./routes/v1');
 const { errorConverter, errorHandler } = require('./middlewares/error');
 const ApiError = require('./utils/ApiError');
+require("./utils/upload")
 
 const app = express();
 
@@ -21,9 +22,12 @@ if (config.env !== 'test') {
   app.use(morgan.errorHandler);
 }
 
-// set security HTTP headers
-app.use(helmet());
+app.use(express.static(__dirname));
+// app.use('/v1/image', express.static('uploads'));
 
+// set security HTTP headers  
+
+app.use(helmet());
 // parse json request body
 app.use(express.json());
 
