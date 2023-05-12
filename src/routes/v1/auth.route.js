@@ -6,6 +6,8 @@ const auth = require('../../middlewares/auth');
 const multer = require('multer');
 const router = express.Router();
 const upload = require("../../utils/upload")
+const businesscover = require("../../utils/Business")
+const businessdocunment = require("../../utils/Docunments")
 
 
 // console.log('upload===>', upload);
@@ -13,7 +15,10 @@ const upload = require("../../utils/upload")
 router.post('/register', validate(authValidation.register), authController.register);
 router.post('/login', validate(authValidation.login), authController.login);
 router.post('/businessstep01', authController.businessstep01)
+router.post('/businessstep02', authController.businessstep02)
 router.post('/businessprofileimage', upload.single('profile-file'), authController.BusinessProfileImage)
+router.post('/businesscover', businesscover.single('cover-file'), authController.BusinessProfileImage)
+router.post('/businessdocunment', businessdocunment.single('docunment-file'), authController.BusinessProfileImage)
 
 
 

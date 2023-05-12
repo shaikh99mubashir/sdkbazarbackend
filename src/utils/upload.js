@@ -6,7 +6,10 @@ var storage = multer.diskStorage({
         cb(null, path.join(__dirname, '../uploads/'));
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname)
+        // cb(null, file.originalname)
+        const ext = path.extname(file.originalname);
+        const name = file.originalname.split('.')[0];
+        cb(null, `${name}-${Date.now()}${ext}`)
     }
 })
 module.exports = multer({ storage })
