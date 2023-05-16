@@ -14,7 +14,6 @@ function generateId(length) {
 
     return result;
 }
-
 const id = 'image' + generateId(7); // add a prefix, like 'SDK', to the generated ID
 console.log(id);
 var storage = multer.diskStorage({

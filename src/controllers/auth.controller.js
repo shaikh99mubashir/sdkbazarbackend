@@ -1,9 +1,15 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
 const { authService, userService, tokenService, emailService } = require('../services');
-const BusinessStep01 = require('../models/BusinessStep1')
+const BusinessStep = require('../models/BusinessStep')
 const BusinessStep02 = require('../models/BusinessStep2')
 const businessprofileimage = require('../models/BusinessProfileImage')
+
+
+
+
+
+
 const register = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
   const tokens = await tokenService.generateAuthTokens(user);
@@ -33,7 +39,7 @@ const businessstep01 = catchAsync(async (req, res) => {
   console.log(req.body)
   console.log(id, "id")
 
-  BusinessStep01.findByIdAndUpdate(id, req.body, (error, data) => {
+  BusinessStep.create(req.body, (error, data) => {
     if (error) {
       res.json(
         {
@@ -52,12 +58,10 @@ const businessstep01 = catchAsync(async (req, res) => {
       )
     }
   })
-
 });
+
 const businessstep02 = catchAsync(async (req, res) => {
-
-  let { id } = req.body
-
+  let { login_ID } = req.body
   let flag = Object.values(req.body);
   console.log('req', req);
   console.log('req body', req.body);
@@ -65,25 +69,28 @@ const businessstep02 = catchAsync(async (req, res) => {
   if (flag2) {
     return
   }
-  BusinessStep01.findByIdAndUpdate(id, { new: true }, req.body, (error, data) => {
-    if (error) {
-      res.json(
-        {
-          status: false,
-          message: 'internal server error'
-        }
-      )
-    }
-    else {
-      res.json(
-        {
-          data: data,
-          status: true,
-          message: 'Data send success fullly'
-        }
-      )
-    }
-  })
+
+  BusinessStep.findOneAndUpdate(
+    login_ID, req.body, (error, data) => {
+      console.log(data, "data")
+      if (error) {
+        res.json(
+          {
+            status: false,
+            message: 'internal server error'
+          }
+        )
+      }
+      else {
+        res.json(
+          {
+            data: data,
+            status: true,
+            message: 'Data send success fullly'
+          }
+        )
+      }
+    })
 
 });
 

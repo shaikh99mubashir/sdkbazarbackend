@@ -8,6 +8,7 @@ const router = express.Router();
 const upload = require("../../utils/upload")
 const businesscover = require("../../utils/Business")
 const businessdocunment = require("../../utils/Docunments")
+const businesscnic = require("../../utils/businesscnic")
 
 
 // console.log('upload===>', upload);
@@ -15,10 +16,13 @@ const businessdocunment = require("../../utils/Docunments")
 router.post('/register', validate(authValidation.register), authController.register);
 router.post('/login', validate(authValidation.login), authController.login);
 router.post('/businessstep01', authController.businessstep01)
-router.post('/businessstep02', authController.businessstep02)
+router.put('/businessstep02', authController.businessstep02)
+// router.post('/businessstep03', authController.businessstep03)
 router.post('/businessprofileimage', upload.single('profile-file'), authController.BusinessProfileImage)
 router.post('/businesscover', businesscover.single('cover-file'), authController.BusinessProfileImage)
 router.post('/businessdocunment', businessdocunment.single('docunment-file'), authController.BusinessProfileImage)
+router.post('/businesscnic', businesscnic.single('cnic-file'), authController.BusinessProfileImage)
+
 
 
 

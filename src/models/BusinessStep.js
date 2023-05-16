@@ -3,8 +3,12 @@ const multer = require('multer');
 
 
 
-const BusinseeStep01 = mongoose.Schema(
+const BusinseeStep = mongoose.Schema(
     {
+        login_ID: {
+            type: String,
+            require: true,
+        },
         company_name: {
             type: String,
             require: true,
@@ -65,11 +69,27 @@ const BusinseeStep01 = mongoose.Schema(
             type: String,
             require: true
         },
+        manager_fullname: {
+            type: String,
+            require: true
+        },
+        manager_designation: {
+            type: String,
+            require: true
+        },
+        manager_email: {
+            type: String,
+            require: true
+        },
+        cnic_image: {
+            type: String,
+            require: true,
+        },
     }
 )
 
 
-const businessstep01 = mongoose.model('businesssteps', BusinseeStep01)
+const businesssteps = mongoose.model('businessstep', BusinseeStep)
 
 
-module.exports = businessstep01
+module.exports = businesssteps
