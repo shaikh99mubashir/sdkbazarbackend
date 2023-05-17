@@ -133,7 +133,7 @@ const businessstep03 = catchAsync(async (req, res) => {
 
 });
 
-const jobseekersstep01 = catchAsync(async (req, res) => {
+const jobseekerstep01 = catchAsync(async (req, res) => {
   jobSeeker.create(req.body, (error, data) => {
     if (error) {
       res.json(
@@ -153,6 +153,89 @@ const jobseekersstep01 = catchAsync(async (req, res) => {
       )
     }
   })
+});
+
+const jobseekerstep02 = catchAsync(async (req, res) => {
+  let { login_ID, cnic, phone_number, country, city, } = req.body
+  let flag = Object.values(req.body);
+  console.log('req', req);
+  console.log('req body', req.body);
+  let flag2 = flag.some((e, i) => e == '');
+  if (flag2) {
+    return
+  }
+
+  const update = {
+    $set: {
+      cnic: cnic,
+      phone_number: phone_number,
+      country: country,
+      city: city,
+    }
+  }
+
+  jobSeeker.findOneAndUpdate(
+    login_ID, update, { new: true }, (error, data) => {
+      console.log(data, "data")
+      if (error) {
+        res.json(
+          {
+            status: false,
+            message: 'internal server error'
+          }
+        )
+      }
+      else {
+        res.json(
+          {
+            data: data,
+            status: true,
+            message: 'Data send success fullly'
+          }
+        )
+      }
+    })
+
+});
+
+const jobseekerstep03 = catchAsync(async (req, res) => {
+  let { login_ID, profession, work_experience, level_of_education, } = req.body
+  let flag = Object.values(req.body);
+  console.log('req', req);
+  console.log('req body', req.body);
+  let flag2 = flag.some((e, i) => e == '');
+  if (flag2) {
+    return
+  }
+  const update = {
+    $set: {
+      profession: profession,
+      work_experience: work_experience,
+      level_of_education: level_of_education,
+    }
+  }
+  jobSeeker.findOneAndUpdate(
+    login_ID, update, { new: true }, (error, data) => {
+      console.log(data, "data")
+      if (error) {
+        res.json(
+          {
+            status: false,
+            message: 'internal server error'
+          }
+        )
+      }
+      else {
+        res.json(
+          {
+            data: data,
+            status: true,
+            message: 'Data send success fullly'
+          }
+        )
+      }
+    })
+
 });
 
 
@@ -213,5 +296,7 @@ module.exports = {
   businessstep02,
   businessstep03,
   BusinessProfileImage,
-  jobseekersstep01,
+  jobseekerstep01,
+  jobseekerstep02,
+  jobseekerstep03,
 };

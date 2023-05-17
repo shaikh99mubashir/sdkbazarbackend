@@ -19,7 +19,9 @@ router.post('/login', validate(authValidation.login), authController.login);
 router.post('/businessstep01', authController.businessstep01)
 router.put('/businessstep02', authController.businessstep02)
 router.put('/businessstep03', authController.businessstep03)
-router.post('/jobseekersstep01', authController.jobseekersstep01)
+router.post('/jobseekerstep01', authController.jobseekerstep01)
+router.put('/jobseekerstep02', authController.jobseekerstep02)
+router.put('/jobseekerstep03', authController.jobseekerstep03)
 
 
 router.post('/businessprofileimage', upload.single('profile-file'), authController.BusinessProfileImage)

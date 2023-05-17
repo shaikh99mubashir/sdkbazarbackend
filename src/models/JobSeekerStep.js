@@ -30,7 +30,7 @@ const jobSeekerStep = mongoose.Schema(
             type: String,
             require: true,
         },
-        phoneno: {
+        phone_number: {
             type: String,
             require: true,
         },
