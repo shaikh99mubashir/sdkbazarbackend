@@ -17,6 +17,7 @@ require("./utils/upload")
 require("./utils/Business")
 require("./utils/Docunments")
 require("./utils/businesscnic")
+require("./utils/jobseekerprofile")
 
 const app = express();
 

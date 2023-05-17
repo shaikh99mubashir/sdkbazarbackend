@@ -2,7 +2,8 @@ const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
 const { authService, userService, tokenService, emailService } = require('../services');
 const BusinessStep = require('../models/BusinessStep')
-const businessprofileimage = require('../models/BusinessProfileImage')
+const businessprofileimage = require('../models/BusinessProfileImage');
+const jobSeeker = require('../models/JobSeekerStep');
 
 
 
@@ -23,19 +24,6 @@ const login = catchAsync(async (req, res) => {
 });
 
 const businessstep01 = catchAsync(async (req, res) => {
-  // const { company_name, business_category, company_registration_number, tax_identifier, license_Type, company_description } = req.body
-  // let flag = Object.values(req.body);
-  // console.log('req', req);
-  // console.log('req body', req.body);
-  // console.log('req file', req.file);
-  // let flag2 = flag.some((e, i) => e == '');
-  // if (flag2) {
-  //   return
-  // }
-  // let { id } = req.body
-  // console.log(req.body)
-  // console.log(id, "id")
-
   BusinessStep.create(req.body, (error, data) => {
     if (error) {
       res.json(
@@ -145,12 +133,33 @@ const businessstep03 = catchAsync(async (req, res) => {
 
 });
 
+const jobseekersstep01 = catchAsync(async (req, res) => {
+  jobSeeker.create(req.body, (error, data) => {
+    if (error) {
+      res.json(
+        {
+          status: false,
+          message: 'internal server error'
+        }
+      )
+    }
+    else {
+      res.json(
+        {
+          data: data,
+          status: true,
+          message: 'Data send success fullly'
+        }
+      )
+    }
+  })
+});
+
+
+
 // Handle image upload request
 const BusinessProfileImage = catchAsync(async (req, res) => {
-
-
-  console.log(req, "request")
-
+  // console.log(req, "request")
   res.status(200).json({ image: req.file.filename })
 
 });
@@ -204,4 +213,5 @@ module.exports = {
   businessstep02,
   businessstep03,
   BusinessProfileImage,
+  jobseekersstep01,
 };
