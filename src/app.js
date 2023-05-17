@@ -16,6 +16,7 @@ const ApiError = require('./utils/ApiError');
 require("./utils/upload")
 require("./utils/Business")
 require("./utils/Docunments")
+require("./utils/businesscnic")
 
 const app = express();
 

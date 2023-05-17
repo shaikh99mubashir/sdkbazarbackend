@@ -2,7 +2,6 @@ const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
 const { authService, userService, tokenService, emailService } = require('../services');
 const BusinessStep = require('../models/BusinessStep')
-const BusinessStep02 = require('../models/BusinessStep2')
 const businessprofileimage = require('../models/BusinessProfileImage')
 
 
@@ -33,11 +32,9 @@ const businessstep01 = catchAsync(async (req, res) => {
   // if (flag2) {
   //   return
   // }
-
-  let { id } = req.body
-
-  console.log(req.body)
-  console.log(id, "id")
+  // let { id } = req.body
+  // console.log(req.body)
+  // console.log(id, "id")
 
   BusinessStep.create(req.body, (error, data) => {
     if (error) {
@@ -61,7 +58,7 @@ const businessstep01 = catchAsync(async (req, res) => {
 });
 
 const businessstep02 = catchAsync(async (req, res) => {
-  let { login_ID } = req.body
+  let { login_ID, company_location, email, phone_number, fax_number, website } = req.body
   let flag = Object.values(req.body);
   console.log('req', req);
   console.log('req body', req.body);
@@ -70,8 +67,62 @@ const businessstep02 = catchAsync(async (req, res) => {
     return
   }
 
+  const update = {
+    $set: {
+      company_location: company_location,
+      email: email,
+      phone_number: phone_number,
+      fax_number: fax_number,
+      fax_number: fax_number,
+      website: website,
+    }
+  }
+
   BusinessStep.findOneAndUpdate(
-    login_ID, req.body, (error, data) => {
+    login_ID, update, { new: true }, (error, data) => {
+      console.log(data, "data")
+      if (error) {
+        res.json(
+          {
+            status: false,
+            message: 'internal server error'
+          }
+        )
+      }
+      else {
+        res.json(
+          {
+            data: data,
+            status: true,
+            message: 'Data send success fullly'
+          }
+        )
+      }
+    })
+
+});
+
+
+const businessstep03 = catchAsync(async (req, res) => {
+  let { login_ID, manager_fullname, manager_designation, manager_email, } = req.body
+  let flag = Object.values(req.body);
+  console.log('req', req);
+  console.log('req body', req.body);
+  let flag2 = flag.some((e, i) => e == '');
+  if (flag2) {
+    return
+  }
+
+  const update = {
+    $set: {
+      manager_fullname: manager_fullname,
+      manager_designation: manager_designation,
+      manager_email: manager_email,
+    }
+  }
+
+  BusinessStep.findOneAndUpdate(
+    login_ID, update, { new: true }, (error, data) => {
       console.log(data, "data")
       if (error) {
         res.json(
@@ -151,5 +202,6 @@ module.exports = {
   verifyEmail,
   businessstep01,
   businessstep02,
+  businessstep03,
   BusinessProfileImage,
 };

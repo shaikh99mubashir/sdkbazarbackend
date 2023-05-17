@@ -17,7 +17,7 @@ router.post('/register', validate(authValidation.register), authController.regis
 router.post('/login', validate(authValidation.login), authController.login);
 router.post('/businessstep01', authController.businessstep01)
 router.put('/businessstep02', authController.businessstep02)
-// router.post('/businessstep03', authController.businessstep03)
+router.put('/businessstep03', authController.businessstep03)
 router.post('/businessprofileimage', upload.single('profile-file'), authController.BusinessProfileImage)
 router.post('/businesscover', businesscover.single('cover-file'), authController.BusinessProfileImage)
 router.post('/businessdocunment', businessdocunment.single('docunment-file'), authController.BusinessProfileImage)

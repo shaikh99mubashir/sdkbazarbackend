@@ -1,7 +1,4 @@
 const mongoose = require('mongoose')
-const multer = require('multer');
-
-
 
 const BusinseeStep = mongoose.Schema(
     {
