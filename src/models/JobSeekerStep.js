@@ -6,6 +6,14 @@ const jobSeekerStep = mongoose.Schema(
             type: String,
             require: true,
         },
+        first_name: {
+            type: String,
+            require: true,
+        },
+        last_name: {
+            type: String,
+            require: true,
+        },
         profile_picture: {
             type: String,
             require: true,

@@ -207,6 +207,7 @@ const jobseekerstep03 = catchAsync(async (req, res) => {
   if (flag2) {
     return
   }
+
   const update = {
     $set: {
       profession: profession,
@@ -214,6 +215,7 @@ const jobseekerstep03 = catchAsync(async (req, res) => {
       level_of_education: level_of_education,
     }
   }
+
   jobSeeker.findOneAndUpdate(
     login_ID, update, { new: true }, (error, data) => {
       console.log(data, "data")
@@ -235,7 +237,6 @@ const jobseekerstep03 = catchAsync(async (req, res) => {
         )
       }
     })
-
 });
 
 
@@ -244,7 +245,6 @@ const jobseekerstep03 = catchAsync(async (req, res) => {
 const BusinessProfileImage = catchAsync(async (req, res) => {
   // console.log(req, "request")
   res.status(200).json({ image: req.file.filename })
-
 });
 
 

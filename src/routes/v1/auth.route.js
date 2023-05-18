@@ -10,6 +10,7 @@ const businesscover = require("../../utils/Business")
 const businessdocunment = require("../../utils/Docunments")
 const businesscnic = require("../../utils/businesscnic")
 const jobseekerprofile = require("../../utils/jobseekerprofile")
+const jobseekercv = require("../../utils/jobseekercv")
 
 
 // console.log('upload===>', upload);
@@ -29,6 +30,7 @@ router.post('/businesscover', businesscover.single('cover-file'), authController
 router.post('/businessdocunment', businessdocunment.single('docunment-file'), authController.BusinessProfileImage)
 router.post('/businesscnic', businesscnic.single('cnic-file'), authController.BusinessProfileImage)
 router.post('/jobseekerprofile', jobseekerprofile.single('profile-file'), authController.BusinessProfileImage)
+router.post('/jobseekecv', jobseekercv.single('cv-file'), authController.BusinessProfileImage)
 
 
 
