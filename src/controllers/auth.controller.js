@@ -199,7 +199,7 @@ const jobseekerstep02 = catchAsync(async (req, res) => {
 });
 
 const jobseekerstep03 = catchAsync(async (req, res) => {
-  let { login_ID, profession, work_experience, level_of_education, } = req.body
+  let { login_ID, profession, specialization, work_experience, level_of_education, cv } = req.body
   let flag = Object.values(req.body);
   console.log('req', req);
   console.log('req body', req.body);
@@ -211,8 +211,10 @@ const jobseekerstep03 = catchAsync(async (req, res) => {
   const update = {
     $set: {
       profession: profession,
+      specialization: specialization,
       work_experience: work_experience,
       level_of_education: level_of_education,
+      cv: cv,
     }
   }
 
