@@ -156,7 +156,7 @@ const jobseekerstep01 = catchAsync(async (req, res) => {
 });
 
 const jobseekerstep02 = catchAsync(async (req, res) => {
-  let { login_ID, cnic, phone_number, country, city, } = req.body
+  let { formId, cnic, phone_number, country, city, step2 } = req.body
   let flag = Object.values(req.body);
   console.log('req', req);
   console.log('req body', req.body);
@@ -171,11 +171,12 @@ const jobseekerstep02 = catchAsync(async (req, res) => {
       phone_number: phone_number,
       country: country,
       city: city,
+      step2: step2,
     }
   }
 
-  jobSeeker.findOneAndUpdate(
-    login_ID, update, { new: true }, (error, data) => {
+  jobSeeker.findByIdAndUpdate(
+    formId, update, { new: true }, (error, data) => {
       console.log(data, "data")
       if (error) {
         res.json(
@@ -199,7 +200,7 @@ const jobseekerstep02 = catchAsync(async (req, res) => {
 });
 
 const jobseekerstep03 = catchAsync(async (req, res) => {
-  let { login_ID, profession, specialization, work_experience, level_of_education, cv } = req.body
+  let { formId, profession, specialization, work_experience, level_of_education, cv, step3 } = req.body
   let flag = Object.values(req.body);
   console.log('req', req);
   console.log('req body', req.body);
@@ -215,11 +216,12 @@ const jobseekerstep03 = catchAsync(async (req, res) => {
       work_experience: work_experience,
       level_of_education: level_of_education,
       cv: cv,
+      step3: step3,
     }
   }
 
-  jobSeeker.findOneAndUpdate(
-    login_ID, update, { new: true }, (error, data) => {
+  jobSeeker.findByIdAndUpdate(
+    formId, update, { new: true }, (error, data) => {
       console.log(data, "data")
       if (error) {
         res.json(
@@ -241,6 +243,24 @@ const jobseekerstep03 = catchAsync(async (req, res) => {
     })
 });
 
+const checkjobseeker = catchAsync(async (req, res) => {
+  let { login_ID } = req.body
+  jobSeeker.findOne({ login_ID: login_ID }, (error, data) => {
+    if (error) {
+      res.json({
+        status: false,
+        message: 'internal server error'
+      })
+    }
+    else {
+      res.json({
+        data: data,
+        status: true,
+        message: 'Data Retrive Sucessfully'
+      })
+    }
+  })
+})
 
 
 // Handle image upload request
@@ -301,4 +321,5 @@ module.exports = {
   jobseekerstep01,
   jobseekerstep02,
   jobseekerstep03,
+  checkjobseeker,
 };

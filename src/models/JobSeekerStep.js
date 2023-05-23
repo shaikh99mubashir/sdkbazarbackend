@@ -6,6 +6,10 @@ const jobSeekerStep = mongoose.Schema(
             type: String,
             require: true,
         },
+        formId: {
+            type: String,
+            require: true,
+        },
         first_name: {
             type: String,
             require: true,
@@ -69,6 +73,18 @@ const jobSeekerStep = mongoose.Schema(
         cv: {
             type: String,
             require: true,
+        },
+        step1: {
+            type: String,
+            require: true
+        },
+        step2: {
+            type: String,
+            require: true
+        },
+        step3: {
+            type: String,
+            require: true
         },
     }
 )
