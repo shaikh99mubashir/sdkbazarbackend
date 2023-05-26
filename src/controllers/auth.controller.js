@@ -247,6 +247,25 @@ const checkjobseeker = catchAsync(async (req, res) => {
   let { login_ID } = req.body
   jobSeeker.findOne({ login_ID: login_ID }, (error, data) => {
     if (error) {
+      console.log('error', error);
+      res.json({
+        status: false,
+        message: 'internal server error'
+      })
+    }
+    else {
+      res.json({
+        data: data,
+        status: true,
+        message: 'Data Retrive Sucessfully'
+      })
+    }
+  })
+})
+const getjobseekerdata = catchAsync(async (req, res) => {
+  jobSeeker.find({}, (error, data) => {
+    if (error) {
+      console.log('error', error);
       res.json({
         status: false,
         message: 'internal server error'
@@ -322,4 +341,5 @@ module.exports = {
   jobseekerstep02,
   jobseekerstep03,
   checkjobseeker,
+  getjobseekerdata,
 };

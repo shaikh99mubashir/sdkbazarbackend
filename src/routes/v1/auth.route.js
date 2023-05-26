@@ -23,7 +23,8 @@ router.put('/businessstep03', authController.businessstep03)
 router.post('/jobseekerstep01', authController.jobseekerstep01)
 router.put('/jobseekerstep02', authController.jobseekerstep02)
 router.put('/jobseekerstep03', authController.jobseekerstep03)
-router.get('/checkjobseeker', authController.checkjobseeker)
+router.post('/checkjobseeker', authController.checkjobseeker)
+router.get('/getjobseeker', authController.getjobseekerdata)
 
 
 router.post('/businessprofileimage', upload.single('profile-file'), authController.BusinessProfileImage)

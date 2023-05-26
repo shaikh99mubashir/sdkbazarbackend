@@ -12,6 +12,7 @@ const { jwtStrategy } = require('./config/passport');
 const { authLimiter } = require('./middlewares/rateLimiter');
 const routes = require('./routes/v1');
 const { errorConverter, errorHandler } = require('./middlewares/error');
+const bodyParser = require('body-parser');
 const ApiError = require('./utils/ApiError');
 require("./utils/upload")
 require("./utils/Business")
@@ -25,6 +26,11 @@ if (config.env !== 'test') {
   app.use(morgan.successHandler);
   app.use(morgan.errorHandler);
 }
+
+
+// Add this middleware to parse the request body
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use(express.static(__dirname));
 // app.use('/v1/image', express.static('uploads'));
